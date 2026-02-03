@@ -22,7 +22,7 @@ Currently as a demonstration this agent is designed to read the Business Objects
 - Tab 2; Run `docker compose up` to spin up the Agent Container
 - Tab 3; Run `ngrok http 7999`
   - Copy the URL from the output of this command
-  - Go to `https://hap.honu.ai`, navigate to your model and under `Engage` click `Engage external agent`
+  - Go to `https://hap.honutech.dev`, navigate to your model and under `Engage` click `Engage external agent`
   - As the `base_url`, input the copied URL
   - As the `app_name`, input `near_agent`
   - Click confirm, and open the chat sidebar. The agent should appear shortly with an introduction message.
