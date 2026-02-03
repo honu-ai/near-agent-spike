@@ -1,0 +1,54 @@
+services:
+  agent:
+    container_name: honu_near_agent_spike
+    build:
+      dockerfile: agent/Dockerfile
+    environment:
+      - USE_DEV_UI=true
+      - POSTGRES_HOST=host.docker.internal
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=honu
+      - POSTGRES_PASSWORD=honu
+      - POSTGRES_DB=agent_database
+      - HONU_MCP_HOST=https://mcp.honutech.dev/mcp
+      - NEAR_MCP_URL=http://host.docker.internal:4000/sse
+    ports:
+      - "7999:7999"
+    volumes:
+      - ./agent:/app/agent
+      - ~/.config/gcloud:/root/.config/gcloud
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    env_file:
+      - .env
+
+  database:
+    image: postgres:17-alpine
+    container_name: honu_near_agent_spike_db
+    restart: unless-stopped
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=honu
+      - POSTGRES_PASSWORD=honu
+      - POSTGRES_DB=agent_database
+      - PGPORT=5432
+      - PGUSER=honu
+    volumes:
+      - spike_db_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d agent_database" ]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+networks:
+  honu-agents-local:
+    ipam:
+      driver: default
+
+volumes:
+  spike_db_data:
