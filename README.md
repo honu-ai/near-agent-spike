@@ -56,6 +56,12 @@ You will need to run three separate processes (e.g., in 3 terminal tabs).
 ### Tab 1: NEAR MCP Server
 This server acts as a bridge between the AI Agent and the NEAR blockchain, managing wallet interactions.
 
+**Extra details;**
+
+Run `mkdir -p ~/.near-credentials/testnet`
+Run `echo '{"account_id":"jsonic.testnet","public_key":"ed25519:Gp1MyShKbAY7fU6Hs1aAS4zNzhNSMP2XxKLctwwsVGXM","private_key":"ed25519:5k2pebopjGfnjvvG1BwHBvTqX4yrBBpdgtgZRBHmmjam6ZwaFTKW9S1LiKjrbdu8UHbRkkQdtC3UbMYtJtWYhmLo"}' > ~/.near-credentials/testnet/jsonic.testnet.json`
+When running the Near MCP Server, the `/path/to/keystore` for you will be `~/.near-credentials`
+
 ```bash
 # Run the NEAR MCP server on port 4000
 npx @nearai/near-mcp@latest run --port 4000 --remote --key-dir ~/.near-credentials
